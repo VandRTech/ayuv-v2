@@ -33,7 +33,7 @@ export function QuickActionsWidget({ actions }: QuickActionsWidgetProps) {
   }
 
   return (
-    <Card className="bg-[#131f2e] border-gray-800">
+    <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg text-white">Quick Actions</CardTitle>
       </CardHeader>

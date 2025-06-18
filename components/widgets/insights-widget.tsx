@@ -53,7 +53,7 @@ export function InsightsWidget({ insights, isLoading }: InsightsWidgetProps) {
 
   if (isLoading) {
     return (
-      <Card className="bg-[#131f2e] border-gray-800">
+      <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
         <CardHeader className="pb-2">
           <Skeleton className="h-5 w-32" />
         </CardHeader>
@@ -75,7 +75,7 @@ export function InsightsWidget({ insights, isLoading }: InsightsWidgetProps) {
 
   if (insights.length === 0) {
     return (
-      <Card className="bg-[#131f2e] border-gray-800">
+      <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
         <CardHeader className="pb-2">
           <CardTitle className="text-lg text-white">AI Health Insights</CardTitle>
         </CardHeader>
@@ -93,7 +93,7 @@ export function InsightsWidget({ insights, isLoading }: InsightsWidgetProps) {
   const IconComponent = getIcon(currentInsight.type, currentInsight.iconName)
 
   return (
-    <Card className="bg-[#131f2e] border-gray-800">
+    <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg text-white">AI Health Insights</CardTitle>
       </CardHeader>

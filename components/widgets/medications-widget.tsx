@@ -45,7 +45,7 @@ export function MedicationsWidget({ medications: initialMedications, isLoading }
 
   if (isLoading) {
     return (
-      <Card className="bg-[#131f2e] border-gray-800">
+      <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
         <CardHeader className="pb-2">
           <Skeleton className="h-5 w-36" />
         </CardHeader>
@@ -65,7 +65,7 @@ export function MedicationsWidget({ medications: initialMedications, isLoading }
   }
 
   return (
-    <Card className="bg-[#131f2e] border-gray-800">
+    <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg text-white flex items-center">
           <Pill className="h-5 w-5 mr-2 text-primary" />

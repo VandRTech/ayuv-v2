@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ArrowDown, ArrowUp, Minus } from "lucide-react"
+import { ArrowDown, ArrowUp, Minus, Heart } from "lucide-react"
 import Link from "next/link"
 
 interface Vital {
@@ -51,51 +51,53 @@ export function VitalsWidget({ vitals, isLoading }: VitalsWidgetProps) {
   }
 
   return (
-    <Card className="bg-[#131f2e] border-gray-800">
-      <CardHeader className="pb-2">
-        <CardTitle className="text-lg text-white">Vitals Summary</CardTitle>
+    <Card className="bg-[#131f2e] border-gray-800 h-fit">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-lg text-white flex items-center">
+          <Heart className="h-5 w-5 mr-2 text-primary" />
+          Vitals Summary
+        </CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="p-4 border border-gray-800 rounded-lg">
-                <div className="flex justify-between items-start">
-                  <Skeleton className="h-4 w-24" />
-                  <Skeleton className="h-5 w-16" />
+              <div key={i} className="flex items-center justify-between p-3 border border-gray-800 rounded-lg">
+                <div className="flex-1">
+                  <Skeleton className="h-4 w-20" />
+                  <Skeleton className="h-6 w-16 mt-2" />
                 </div>
-                <div className="mt-3">
-                  <Skeleton className="h-8 w-16" />
-                </div>
-                <Skeleton className="h-3 w-32 mt-2" />
+                <Skeleton className="h-5 w-16" />
               </div>
             ))}
           </div>
         ) : vitals.length === 0 ? (
-          <div className="text-center py-6">
+          <div className="text-center py-8">
             <p className="text-slate-400">No vital data available</p>
             <Link href="/vitals/add" className="text-primary text-sm hover:underline mt-2 inline-block">
               Add your first vital reading
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {vitals.map((vital) => (
               <Link
                 href={vital.historyLink}
                 key={vital.name}
-                className="block p-4 border border-gray-800 rounded-lg hover:bg-[#1a2736] transition-colors"
+                className="flex items-center justify-between p-4 border border-gray-800 rounded-lg hover:bg-[#1a2736] transition-colors group"
               >
-                <div className="flex justify-between items-start">
-                  <span className="text-sm text-slate-400">{vital.name}</span>
-                  <Badge className={`${getBadgeVariant(vital.status)} font-normal`}>{vital.status}</Badge>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-slate-400 truncate">{vital.name}</span>
+                    <Badge className={`${getBadgeVariant(vital.status)} text-xs shrink-0 ml-2`}>{vital.status}</Badge>
+                  </div>
+                  <div className="flex items-baseline">
+                    <span className="text-xl font-bold text-white">{vital.value}</span>
+                    <span className="text-sm text-slate-400 ml-1">{vital.unit}</span>
+                    {vital.trend && <span className="ml-2">{renderTrendIndicator(vital.trend)}</span>}
+                  </div>
+                  <span className="text-xs text-slate-500 block mt-1 truncate">{vital.timestamp}</span>
                 </div>
-                <div className="mt-3 flex items-baseline">
-                  <span className="text-2xl font-bold text-white">{vital.value}</span>
-                  <span className="text-sm text-slate-400 ml-1">{vital.unit}</span>
-                  {vital.trend && <span className="ml-2">{renderTrendIndicator(vital.trend)}</span>}
-                </div>
-                <span className="text-xs text-slate-500 mt-1 block">{vital.timestamp}</span>
               </Link>
             ))}
           </div>

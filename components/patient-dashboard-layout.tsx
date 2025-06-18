@@ -13,7 +13,25 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { LayoutDashboard, FileText, Shield, User, Settings, LogOut, Activity, Calendar, Pill, Bell } from "lucide-react"
+import {
+  LayoutDashboard,
+  FileText,
+  Shield,
+  User,
+  Settings,
+  LogOut,
+  Activity,
+  Calendar,
+  Pill,
+  Bell,
+  Users,
+  AlertTriangle,
+  Heart,
+  Home,
+  MessageSquare,
+  BarChart3,
+  Monitor,
+} from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 
@@ -28,12 +46,24 @@ const sidebarItems = [
   { name: "Profile", href: "/portal/profile", icon: User },
 ]
 
+const caregiverItems = [
+  { name: "Caregiver Dashboard", href: "/portal/caregiver", icon: Users },
+  { name: "Multi-Patient Monitor", href: "/portal/caregiver/multi-patient", icon: Monitor },
+  { name: "Hospital Dashboard", href: "/portal/caregiver/hospital", icon: Heart },
+  { name: "Family Dashboard", href: "/portal/caregiver/family", icon: Home },
+  { name: "Eldercare Dashboard", href: "/portal/caregiver/eldercare", icon: Users },
+  { name: "Alert Management", href: "/portal/caregiver/alerts", icon: AlertTriangle },
+  { name: "Communication Hub", href: "/portal/caregiver/communication", icon: MessageSquare },
+  { name: "Analytics & Reports", href: "/portal/caregiver/analytics", icon: BarChart3 },
+]
+
 interface PatientDashboardLayoutProps {
   children: React.ReactNode
 }
 
 export function PatientDashboardLayout({ children }: PatientDashboardLayoutProps) {
   const pathname = usePathname()
+  const isCaregiverSection = pathname.includes("/caregiver")
 
   return (
     <div className="min-h-screen bg-black">
@@ -44,7 +74,7 @@ export function PatientDashboardLayout({ children }: PatientDashboardLayoutProps
             <Link href="/" className="flex items-center space-x-2">
               <Image src="/images/ayuv-logo.png" alt="AYUV Health Logo" width={120} height={32} className="h-auto" />
             </Link>
-            <span className="text-sm text-slate-400">Patient Portal</span>
+            <span className="text-sm text-slate-400">{isCaregiverSection ? "Caregiver Portal" : "Patient Portal"}</span>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -91,30 +121,66 @@ export function PatientDashboardLayout({ children }: PatientDashboardLayoutProps
       <div className="flex">
         {/* Sidebar */}
         <aside className="w-64 border-r border-slate-800/50 bg-black/95 backdrop-blur-md min-h-[calc(100vh-4rem)]">
-          <nav className="p-4 space-y-2">
-            {sidebarItems.map((item, index) => {
-              const isActive = pathname === item.href
-              return (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link
-                    href={item.href}
-                    className={`flex items-center space-x-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
-                      isActive
-                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-500/20"
-                        : "text-slate-400 hover:text-white hover:bg-slate-800/50"
-                    }`}
-                  >
-                    <item.icon className="h-5 w-5" />
-                    <span>{item.name}</span>
-                  </Link>
-                </motion.div>
-              )
-            })}
+          <nav className="p-4 space-y-6">
+            {/* Patient Portal Section */}
+            <div>
+              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Patient Portal</h3>
+              <div className="space-y-1">
+                {sidebarItems.map((item, index) => {
+                  const isActive = pathname === item.href
+                  return (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                          isActive
+                            ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-500/20"
+                            : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                        }`}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.name}</span>
+                      </Link>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            </div>
+
+            {/* Caregiver Portal Section */}
+            <div>
+              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Caregiver Portal</h3>
+              <div className="space-y-1">
+                {caregiverItems.map((item, index) => {
+                  const isActive = pathname === item.href
+                  return (
+                    <motion.div
+                      key={item.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: (sidebarItems.length + index) * 0.05 }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                          isActive
+                            ? "bg-blue-500/20 text-blue-400 border border-blue-500/30 shadow-lg shadow-blue-500/20"
+                            : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                        }`}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        <span className="text-xs">{item.name}</span>
+                      </Link>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            </div>
           </nav>
         </aside>
 

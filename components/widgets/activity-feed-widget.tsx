@@ -34,7 +34,7 @@ export function ActivityFeedWidget({ activities, isLoading }: ActivityFeedWidget
 
   if (isLoading) {
     return (
-      <Card className="bg-[#131f2e] border-gray-800">
+      <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
         <CardHeader className="pb-2">
           <Skeleton className="h-5 w-32" />
         </CardHeader>
@@ -54,7 +54,7 @@ export function ActivityFeedWidget({ activities, isLoading }: ActivityFeedWidget
   }
 
   return (
-    <Card className="bg-[#131f2e] border-gray-800">
+    <Card className="bg-[#131f2e] border-gray-800 min-h-[250px]">
       <CardHeader className="pb-2">
         <CardTitle className="text-lg text-white">Recent Activity</CardTitle>
       </CardHeader>
