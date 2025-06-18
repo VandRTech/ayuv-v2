@@ -4,6 +4,7 @@ import { FeaturesSection } from "@/components/features-section"
 import { HowItWorksSection } from "@/components/how-it-works-section"
 import { FooterSection } from "@/components/footer-section"
 import { SpaceBackground } from "@/components/space-background"
+import { AegisShowcaseSection } from "@/components/aegis-showcase-section"
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
           <HeroSection />
           <FeaturesSection />
           <HowItWorksSection />
+          <AegisShowcaseSection />
           <FooterSection />
         </main>
       </div>

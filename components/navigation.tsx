@@ -12,6 +12,7 @@ import { motion } from "framer-motion"
 const navigationItems = [
   { name: "About", href: "/about" },
   { name: "Features", href: "/features" },
+  { name: "Aegis Wearables", href: "/aegis" },
   { name: "Patient Portal", href: "/portal" },
   { name: "Resources", href: "/resources" },
   { name: "Community", href: "/community" },

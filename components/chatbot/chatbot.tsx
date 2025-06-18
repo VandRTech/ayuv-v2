@@ -88,15 +88,31 @@ export function Chatbot() {
         }),
       })
 
+      const data = await response.json()
+
       if (!response.ok) {
-        throw new Error("Failed to get response")
+        throw new Error(data.error || "Failed to get response")
       }
 
-      const data = await response.json()
-      return data.response
+      return (
+        data.response || "I'm here to help you learn about AYUV Health! What would you like to know about our platform?"
+      )
     } catch (error) {
       console.error("Chatbot error:", error)
-      return "I apologize, but I'm having trouble responding right now. Please try again later or contact our support team for assistance."
+
+      // Return a contextual response based on the user's message
+      const lowerMessage = userMessage.toLowerCase()
+      if (lowerMessage.includes("what is ayuv") || lowerMessage.includes("about")) {
+        return "AYUV Health is a Privacy Native Health OS that securely unifies your medical records, wearable data, and checkups in one platform. We use blockchain technology for secure consent management and AI for health insights."
+      }
+      if (lowerMessage.includes("feature")) {
+        return "AYUV Health offers secure medical record unification, wearable data integration, blockchain consent management, and AI-driven health insights through our patient portal."
+      }
+      if (lowerMessage.includes("price") || lowerMessage.includes("cost")) {
+        return "For pricing information, please visit our pricing page or contact our sales team. We offer various plans to suit different needs."
+      }
+
+      return "I'm here to help you learn about AYUV Health! I can answer questions about our platform features, security, pricing, and how to get started. What would you like to know?"
     }
   }
 
@@ -128,7 +144,8 @@ export function Chatbot() {
     } catch (error) {
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: "I apologize, but I'm having trouble responding right now. Please try again later.",
+        content:
+          "I'm here to help you learn about AYUV Health! What would you like to know about our platform, features, or services?",
         sender: "bot",
         timestamp: new Date(),
       }
@@ -193,7 +210,7 @@ export function Chatbot() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed bottom-24 right-6 z-40 w-96 h-[500px]"
+            className="fixed bottom-24 right-6 z-40 w-96 h-[500px] max-w-[calc(100vw-2rem)]"
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
