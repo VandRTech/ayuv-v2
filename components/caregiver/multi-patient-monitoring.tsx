@@ -33,14 +33,14 @@ export function MultiPatientMonitoring() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center">
+          <h1 className="text-2xl sm:text-3xl font-bold text-white flex items-center">
             <Users className="h-6 w-6 mr-2 text-primary" />
             Multi-Patient Monitoring
           </h1>
-          <p className="text-slate-400 mt-1">Real-time overview of all patients under care</p>
+          <p className="text-slate-400 mt-1 text-sm sm:text-base">Real-time overview of all patients under care</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="border-gray-700">
+          <Button variant="outline" size="sm" className="border-gray-700 text-sm">
             <Phone className="h-4 w-4 mr-2" />
             Emergency Contact
           </Button>
@@ -56,7 +56,7 @@ export function MultiPatientMonitoring() {
                 <p className="text-sm text-slate-400">Total Patients</p>
                 <p className="text-2xl font-bold text-white">{summary.totalPatients}</p>
               </div>
-              <Users className="h-8 w-8 text-primary" />
+              <Users className="h-8 w-8 text-primary shrink-0" />
             </div>
           </CardContent>
         </Card>
@@ -68,7 +68,7 @@ export function MultiPatientMonitoring() {
                 <p className="text-sm text-slate-400">Critical Alerts</p>
                 <p className="text-2xl font-bold text-red-500">{summary.criticalAlerts}</p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-red-500" />
+              <AlertTriangle className="h-8 w-8 text-red-500 shrink-0" />
             </div>
           </CardContent>
         </Card>
@@ -80,7 +80,7 @@ export function MultiPatientMonitoring() {
                 <p className="text-sm text-slate-400">Stable Patients</p>
                 <p className="text-2xl font-bold text-green-500">{summary.stablePatients}</p>
               </div>
-              <Heart className="h-8 w-8 text-green-500" />
+              <Heart className="h-8 w-8 text-green-500 shrink-0" />
             </div>
           </CardContent>
         </Card>
@@ -92,7 +92,7 @@ export function MultiPatientMonitoring() {
                 <p className="text-sm text-slate-400">Monitoring</p>
                 <p className="text-2xl font-bold text-yellow-500">{summary.monitoringPatients}</p>
               </div>
-              <Activity className="h-8 w-8 text-yellow-500" />
+              <Activity className="h-8 w-8 text-yellow-500 shrink-0" />
             </div>
           </CardContent>
         </Card>
@@ -114,14 +114,14 @@ export function MultiPatientMonitoring() {
                 placeholder="Search patients by name or ID..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-[#0e1621] border-gray-700 text-white"
+                className="pl-10 bg-[#0e1621] border-gray-700 text-white text-sm"
               />
             </div>
             <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger className="w-full sm:w-48 bg-[#0e1621] border-gray-700">
+              <SelectTrigger className="w-full sm:w-48 bg-[#0e1621] border-gray-700 text-sm">
                 <SelectValue placeholder="Filter by status" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#0e1621] border-gray-700 text-white">
                 <SelectItem value="all">All Status</SelectItem>
                 <SelectItem value="stable">Stable</SelectItem>
                 <SelectItem value="monitoring">Monitoring</SelectItem>
@@ -129,10 +129,10 @@ export function MultiPatientMonitoring() {
               </SelectContent>
             </Select>
             <Select value={filterUnit} onValueChange={setFilterUnit}>
-              <SelectTrigger className="w-full sm:w-48 bg-[#0e1621] border-gray-700">
+              <SelectTrigger className="w-full sm:w-48 bg-[#0e1621] border-gray-700 text-sm">
                 <SelectValue placeholder="Filter by unit" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#0e1621] border-gray-700 text-white">
                 <SelectItem value="all">All Units</SelectItem>
                 <SelectItem value="ICU">ICU</SelectItem>
                 <SelectItem value="Emergency">Emergency</SelectItem>
@@ -143,7 +143,7 @@ export function MultiPatientMonitoring() {
           </div>
 
           {/* Patient Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {filteredPatients.map((patient) => (
               <PatientCard key={patient.id} patient={patient} />
             ))}
@@ -151,7 +151,7 @@ export function MultiPatientMonitoring() {
 
           {filteredPatients.length === 0 && (
             <div className="text-center py-8">
-              <p className="text-slate-400">No patients found matching your criteria</p>
+              <p className="text-slate-400 text-sm">No patients found matching your criteria</p>
             </div>
           )}
         </CardContent>

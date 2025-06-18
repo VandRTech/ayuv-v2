@@ -31,9 +31,11 @@ import {
   MessageSquare,
   BarChart3,
   Monitor,
+  Menu,
 } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet" // Added for mobile sidebar
 
 const sidebarItems = [
   { name: "Dashboard", href: "/portal", icon: LayoutDashboard },
@@ -66,15 +68,92 @@ export function PatientDashboardLayout({ children }: PatientDashboardLayoutProps
   const isCaregiverSection = pathname.includes("/caregiver")
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
       <header className="sticky top-0 z-50 w-full border-b border-slate-800/50 bg-black/95 backdrop-blur-md">
-        <div className="container flex h-16 items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center space-x-2">
+        <div className="container flex h-16 items-center justify-between px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            {/* Mobile Menu Trigger */}
+            <Sheet>
+              <SheetTrigger asChild className="lg:hidden">
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Menu className="h-5 w-5 text-white" />
+                  <span className="sr-only">Toggle navigation</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-64 bg-black border-r border-slate-800/50 p-0">
+                <nav className="p-4 space-y-6">
+                  <Link href="/" className="flex items-center space-x-2 mb-6 px-3">
+                    <Image
+                      src="/images/ayuv-logo.png"
+                      alt="AYUV Health Logo"
+                      width={120}
+                      height={32}
+                      className="h-auto"
+                    />
+                  </Link>
+                  {/* Patient Portal Section */}
+                  <div>
+                    <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">
+                      Patient Portal
+                    </h3>
+                    <div className="space-y-1">
+                      {sidebarItems.map((item, index) => {
+                        const isActive = pathname === item.href
+                        return (
+                          <Link
+                            href={item.href}
+                            key={item.name}
+                            className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                              isActive
+                                ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-500/20"
+                                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                            }`}
+                          >
+                            <item.icon className="h-4 w-4" />
+                            <span>{item.name}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Caregiver Portal Section */}
+                  <div className="mt-6">
+                    <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">
+                      Caregiver Portal
+                    </h3>
+                    <div className="space-y-1">
+                      {caregiverItems.map((item, index) => {
+                        const isActive = pathname === item.href
+                        return (
+                          <Link
+                            href={item.href}
+                            key={item.name}
+                            className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
+                              isActive
+                                ? "bg-blue-500/20 text-blue-400 border border-blue-500/30 shadow-lg shadow-blue-500/20"
+                                : "text-slate-400 hover:text-white hover:bg-slate-800/50"
+                            }`}
+                          >
+                            <item.icon className="h-4 w-4" />
+                            <span className="text-xs">{item.name}</span>
+                          </Link>
+                        )
+                      })}
+                    </div>
+                  </div>
+                </nav>
+              </SheetContent>
+            </Sheet>
+
+            {/* Desktop Logo and Portal Name */}
+            <Link href="/" className="hidden lg:flex items-center space-x-2">
               <Image src="/images/ayuv-logo.png" alt="AYUV Health Logo" width={120} height={32} className="h-auto" />
             </Link>
-            <span className="text-sm text-slate-400">{isCaregiverSection ? "Caregiver Portal" : "Patient Portal"}</span>
+            <span className="text-sm text-slate-400 hidden lg:block">
+              {isCaregiverSection ? "Caregiver Portal" : "Patient Portal"}
+            </span>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -118,10 +197,10 @@ export function PatientDashboardLayout({ children }: PatientDashboardLayoutProps
         </div>
       </header>
 
-      <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-64 border-r border-slate-800/50 bg-black/95 backdrop-blur-md min-h-[calc(100vh-4rem)]">
-          <nav className="p-4 space-y-6">
+      <div className="flex flex-1">
+        {/* Desktop Sidebar */}
+        <aside className="hidden lg:flex w-64 border-r border-slate-800/50 bg-black/95 backdrop-blur-md min-h-[calc(100vh-4rem)] shrink-0">
+          <nav className="p-4 space-y-6 w-full">
             {/* Patient Portal Section */}
             <div>
               <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Patient Portal</h3>
@@ -153,7 +232,7 @@ export function PatientDashboardLayout({ children }: PatientDashboardLayoutProps
             </div>
 
             {/* Caregiver Portal Section */}
-            <div>
+            <div className="mt-6">
               <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Caregiver Portal</h3>
               <div className="space-y-1">
                 {caregiverItems.map((item, index) => {
@@ -185,7 +264,7 @@ export function PatientDashboardLayout({ children }: PatientDashboardLayoutProps
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 bg-black">
+        <main className="flex-1 p-4 sm:p-6 bg-black overflow-auto">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             {children}
           </motion.div>

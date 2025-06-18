@@ -42,35 +42,41 @@ export function AlertsOverview({ alerts }: AlertsOverviewProps) {
       <Card className="bg-[#131f2e] border-gray-800 lg:col-span-2">
         <CardHeader className="pb-4">
           <CardTitle className="text-lg text-white flex items-center">
-            <AlertTriangle className="h-5 w-5 mr-2 text-red-500" />
+            <AlertTriangle className="h-5 w-5 mr-2 text-red-500 shrink-0" />
             Critical Alerts ({criticalAlerts.length})
           </CardTitle>
         </CardHeader>
         <CardContent>
           {criticalAlerts.length === 0 ? (
             <div className="text-center py-6">
-              <p className="text-slate-400">No critical alerts</p>
+              <p className="text-slate-400 text-sm">No critical alerts</p>
             </div>
           ) : (
             <div className="space-y-3">
               {criticalAlerts.map((alert) => (
                 <div key={alert.id} className={`p-3 rounded-lg border ${getAlertColor(alert.type)} bg-opacity-10`}>
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <Badge className={getAlertColor(alert.type)}>{alert.type.toUpperCase()}</Badge>
-                        <span className="text-sm text-white font-medium">{alert.patientName}</span>
-                        <span className="text-xs text-slate-400">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-center space-x-2 mb-1">
+                        <Badge className={`${getAlertColor(alert.type)} text-xs shrink-0`}>
+                          {alert.type.toUpperCase()}
+                        </Badge>
+                        <span className="text-sm text-white font-medium truncate">{alert.patientName}</span>
+                        <span className="text-xs text-slate-400 truncate">
                           {alert.unit} - Room {alert.room}
                         </span>
                       </div>
                       <p className="text-sm text-slate-300 mb-2">{alert.message}</p>
                       <div className="flex items-center text-xs text-slate-500">
-                        <Clock className="h-3 w-3 mr-1" />
+                        <Clock className="h-3 w-3 mr-1 shrink-0" />
                         {alert.timestamp}
                       </div>
                     </div>
-                    <Button size="sm" variant="outline" className="border-gray-700 ml-3">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="border-gray-700 text-xs sm:text-sm mt-2 sm:mt-0 sm:ml-3 shrink-0"
+                    >
                       Acknowledge
                     </Button>
                   </div>
@@ -85,7 +91,7 @@ export function AlertsOverview({ alerts }: AlertsOverviewProps) {
       <Card className="bg-[#131f2e] border-gray-800">
         <CardHeader className="pb-4">
           <CardTitle className="text-lg text-white flex items-center">
-            <Bell className="h-5 w-5 mr-2 text-primary" />
+            <Bell className="h-5 w-5 mr-2 text-primary shrink-0" />
             Recent Activity
           </CardTitle>
         </CardHeader>
@@ -97,7 +103,7 @@ export function AlertsOverview({ alerts }: AlertsOverviewProps) {
                 className="flex items-start space-x-3 p-2 rounded hover:bg-[#1a2736] transition-colors"
               >
                 <div
-                  className={`w-2 h-2 rounded-full mt-2 ${
+                  className={`w-2 h-2 rounded-full mt-2 shrink-0 ${
                     alert.type === "critical"
                       ? "bg-red-500"
                       : alert.type === "warning"
