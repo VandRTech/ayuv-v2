@@ -53,24 +53,27 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4"
+            className="flex flex-col sm:flex-row gap-4 items-center"
           >
+            {/* Join Our Early Access - Solid Emerald Button */}
             <Button
               size="lg"
               asChild
-              className="bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg hover:shadow-emerald-500/25 glow-border"
+              className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8 py-3 rounded-full shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 border-0"
             >
               <Link href="/waitlist">Join Our Early Access</Link>
             </Button>
+
+            {/* Explore Patient Portal - Transparent Button with Arrow */}
             <Button
               variant="outline"
               size="lg"
               asChild
-              className="border-slate-600 text-white hover:bg-slate-800/50 backdrop-blur-sm"
+              className="border-2 border-slate-600 text-white hover:bg-slate-800/50 backdrop-blur-sm font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:border-slate-500"
             >
-              <Link href="/portal">
+              <Link href="/portal" className="flex items-center gap-2">
                 Explore Patient Portal
-                <svg className="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
