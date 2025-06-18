@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Toaster } from "@/components/ui/toaster"
+import { Chatbot } from "@/components/chatbot/chatbot"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     title: "AYUV Health - Privacy Native Health OS",
     description: "Securely unify your medical records, wearable data, and checkups - all in one place.",
   },
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -40,6 +41,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           {children}
           <Toaster />
+          <Chatbot />
         </ThemeProvider>
       </body>
     </html>
