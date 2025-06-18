@@ -25,14 +25,14 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2 }}
+            transition={{ duration: 1.5, delay: 0.3 }}
             className="space-y-6"
           >
             <motion.h1
               className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none text-white glow-text"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.4 }}
+              transition={{ duration: 1.5, delay: 0.6 }}
             >
               We are Building World's First
               <br />
@@ -42,7 +42,7 @@ export function HeroSection() {
               className="mx-auto max-w-[700px] text-slate-300 md:text-xl leading-relaxed"
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6 }}
+              transition={{ duration: 1.5, delay: 0.9 }}
             >
               Securely unify your medical records, wearable data, and checkups - all in one place. Experience the future
               of healthcare with blockchain-secured consent and AI-driven insights.
@@ -52,7 +52,7 @@ export function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.8 }}
+            transition={{ duration: 1.5, delay: 1.2 }}
             className="flex flex-col sm:flex-row gap-4 items-center"
           >
             {/* Join Our Early Access - Solid Emerald Button */}
