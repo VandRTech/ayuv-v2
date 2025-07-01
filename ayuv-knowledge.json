@@ -1,0 +1,38 @@
+[
+  {
+    "title": "About AYUV Health",
+    "content": "We're building the future of healthcare through secure, AI-driven, patient-centric health data management. Mission: To empower every individual with complete control over their health data, enabling better healthcare outcomes through unified, secure, and intelligent health record management. Vision: A future where healthcare is preventive, personalized, and accessible to all, powered by secure blockchain technology and cutting-edge AI insights. What Makes AYUV Different: Security (Blockchain-Secured Consent), AI-Powered (Intelligent Health Insights), Unified (Complete Health Picture), Global (International standards, multi-language, cross-system)."
+  },
+  {
+    "title": "Features",
+    "content": "Unified Health Records: Centralize all your medical data from multiple providers in one secure, accessible location. Blockchain Security: Immutable consent management with cryptographic proof of every data access. AI Health Insights: Personalized health recommendations powered by advanced machine learning algorithms. Wearable Integration: Sync data from smartwatches, fitness trackers, and IoT health devices. Smart Notifications: Alerts for medication reminders, appointments, and health milestones. Zero-Trust Architecture: End-to-end encryption with granular access controls and audit trails. Mobile-First Design: Native mobile apps with offline capabilities and real-time synchronization. Global Standards: HL7 FHIR, DICOM compliance. Real-Time Analytics: Live health monitoring with instant insights and trend analysis. Care Team Collaboration: Secure sharing with healthcare providers, family members, and caregivers. Document Management: Organize, categorize, and search through all your health documents and reports. Wellness Tracking: Comprehensive wellness monitoring including mental health and lifestyle factors."
+  },
+  {
+    "title": "Aegis by AYUV Wearables",
+    "content": "Aegis by AYUV is the world's first Privacy-Native Health OS Wearables featuring: Blockchain-secured health data sync with native consent integration, Federated AI health intelligence for personalized insights, Medical-grade continuous monitoring with clinical precision, Two variants: Aegis Band (athlete-focused) and Aegis Watch (smartwatch functionality), Military-grade durability (MIL-STD 810H), IP68 water resistance, 14+ day battery life, FHIR-compliant integration, Privacy-first architecture, Emergency response features, Offline-first design."
+  },
+  {
+    "title": "Caregiver Module (Patient Portal)",
+    "content": "Family Dashboard: Multi-generation health tracking and management, emergency contacts, family member details, vital signs, medication status. Comprehensive Health Management: Track and manage health for all family members. Emergency Response: Emergency contacts and response features for families. Alerts Overview: Critical alerts, recent activity, acknowledge alerts for patients. Hospital Dashboard: Patient management, alerts, and communication for hospital caregivers. Eldercare Dashboard: Elderly patient management, family communication groups, WhatsApp integration, privacy-compliant notifications. Multi-Patient Dashboard: Manage and monitor multiple patients, alerts, and health data."
+  },
+  {
+    "title": "Support",
+    "content": "Email Support: support@ayuv.health (within 24 hours). Live Chat: Real-time assistance during business hours (coming soon). Phone Support: +1 (555) 123-4567 (business hours). Community Forum: community.ayuv.health. Quick Links: Documentation, FAQ, Getting Started, Community. Common Issues: Account setup, data integration, privacy & consent, technical issues. Support Request Form: Submit issues and receive confirmation and ticket number."
+  },
+  {
+    "title": "Community",
+    "content": "12,000+ global members, 2,500+ active discussions, 150+ events hosted, 500+ success stories. Forum categories: General Health, Wearable Technology, Data Privacy & Security, Preventive Care, AI & Health Insights, Developer Corner. Upcoming events: Global Health Data Summit, Wearable Tech Showcase, Blockchain in Healthcare Workshop. Features: Expert-led discussions, global network, peer support, early access to features."
+  },
+  {
+    "title": "Contact",
+    "content": "Email: hello@ayuv.health (general), support@ayuv.health (support). Phone: +1 (555) 123-4567. Address: 123 Innovation Drive, Tech Valley, CA 94000, United States. Business Hours: Mon-Fri 9am-6pm PST, Sat 10am-4pm PST, Sun closed. Contact Form: For general, support, partnership, press, and careers inquiries."
+  },
+  {
+    "title": "Pricing",
+    "content": "Flexible pricing options designed to meet your healthcare data management needs. Coming soon with transparent, affordable plans."
+  },
+  {
+    "title": "Resources & Education",
+    "content": "Documentation: Getting Started Guide, API Documentation (coming soon), Security & Privacy. Educational Content: Health Data Standards, Blockchain in Healthcare, Preventive Care Guide (coming soon). Video Tutorials: Platform Overview, Consent Management, Wearable Integration (coming soon). Downloads: Mobile App (Android/iOS coming soon), Data Export Tool (Beta)."
+  }
+] 

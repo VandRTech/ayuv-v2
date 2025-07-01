@@ -1,0 +1,22 @@
+export const ayuvCtaMessages = [
+  "Get started and unlock your healthiest self today.",
+  "Join AYUV and take control of your health journey.",
+  "Start tracking your wellness with AYUV now.",
+  "Become part of a thriving health community.",
+  "Sign up and experience smarter healthcare.",
+  "Unlock personalized health insights with AYUV.",
+  "Join innovators building the future of health.",
+  "Start your journey to better health today.",
+  "Empower your wellness with AYUV's smart tools.",
+  "Take the first step to a healthier you.",
+  "Join now and simplify your health management.",
+  "Experience the next generation of health platforms.",
+  "Sign up and connect with top health experts.",
+  "Start building your health legacy with AYUV.",
+  "Join AYUV and inspire your wellness journey.",
+  "Unlock your full health potential today.",
+  "Be the healthiest version of yourself with AYUV.",
+  "Start now and make your health a priority.",
+  "Join the AYUV revolution in healthcare.",
+  "Sign up and see your health in a new light."
+]; 
