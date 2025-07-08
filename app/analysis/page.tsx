@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect, useCallback, FC, useRef } from 'react';
 import { Loader2, UploadCloud, CheckCircle2, AlertCircle, FileText, Bot, ChevronRight, Activity, RefreshCw, AlertTriangle, Droplets, HeartPulse, ShieldCheck } from 'lucide-react';
-import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
+import { getSupabaseBrowserClient } from '@/lib/supabaseClient';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDropzone, FileWithPath } from 'react-dropzone';
 import { AiraReport } from '@/components/health-report';
 import { EcgBeat } from '@/components/ui/ecg-beat';
 import './markdown.css'; // We will create this file for styling
 import { useRouter } from "next/navigation";
+import { useSession } from "@supabase/auth-helpers-react";
 
 // --- Types ---
 type AnalysisStatus = 'IDLE' | 'SUBMITTING' | 'RECEIVED' | 'PROCESSING' | 'OCR_COMPLETE' | 'QUESTIONS_READY' | 'COMPLETED' | 'GENERATING_REPORT' | 'REPORT_READY' | 'FAILED';
@@ -16,7 +17,8 @@ type Answer = { question: string; answer: string };
 
 // --- Main Page Component ---
 const HealthAnalysisPage: FC = () => {
-  const supabase = useSupabaseClient();
+  // --- All hooks at the top ---
+  const supabase = getSupabaseBrowserClient();
   const session = useSession();
   const router = useRouter();
   
@@ -162,24 +164,15 @@ const HealthAnalysisPage: FC = () => {
     }
   }, [status, lastSessionId, pollAnalysisStatus, stopPolling]);
 
+  // --- Auth Check ---
   useEffect(() => {
-    if (session === null) {
-      return;
-    }
+    if (session === null) return; // Still loading
     if (!session) {
       router.replace("/auth");
     }
   }, [session, router]);
 
-  // Dropzone hook
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: (acceptedFiles: FileWithPath[]) => setHealthReport(acceptedFiles[0]),
-    accept: { 'application/pdf': ['.pdf'], 'image/jpeg': ['.jpg', '.jpeg'], 'image/png': ['.png'], 'image/bmp': ['.bmp'], 'image/tiff': ['.tiff', '.tif'], 'image/webp': ['.webp'] },
-    maxFiles: 1,
-  });
-
   if (!session) {
-    // Session is still loading or user is not authenticated and is being redirected.
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <Loader2 className="w-16 h-16 text-emerald-400 animate-spin mb-4" />
@@ -187,6 +180,13 @@ const HealthAnalysisPage: FC = () => {
       </div>
     );
   }
+
+  // Dropzone hook
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: (acceptedFiles: FileWithPath[]) => setHealthReport(acceptedFiles[0]),
+    accept: { 'application/pdf': ['.pdf'], 'image/jpeg': ['.jpg', '.jpeg'], 'image/png': ['.png'], 'image/bmp': ['.bmp'], 'image/tiff': ['.tiff', '.tif'], 'image/webp': ['.webp'] },
+    maxFiles: 1,
+  });
 
   // --- Rest of the component ---
 

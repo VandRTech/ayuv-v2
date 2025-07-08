@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { useState, FC } from "react"
-import getSupabaseBrowserClient from "@/lib/supabaseClient"
+import { getSupabaseBrowserClient } from "@/lib/supabaseClient"
 import { toast } from "@/hooks/use-toast"
 
 import { Navigation } from "@/components/navigation"
