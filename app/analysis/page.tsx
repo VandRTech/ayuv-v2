@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect, useCallback, FC, useRef } from 'react';
 import { Loader2, UploadCloud, CheckCircle2, AlertCircle, FileText, Bot, ChevronRight, Activity, RefreshCw, AlertTriangle, Droplets, HeartPulse, ShieldCheck } from 'lucide-react';
-import getSupabaseBrowserClient from '@/lib/supabaseClient';
+import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDropzone, FileWithPath } from 'react-dropzone';
 import { AiraReport } from '@/components/health-report';
+import { EcgBeat } from '@/components/ui/ecg-beat';
 import './markdown.css'; // We will create this file for styling
 import { useRouter } from "next/navigation";
-import { useSession } from "@supabase/auth-helpers-react";
 
 // --- Types ---
 type AnalysisStatus = 'IDLE' | 'SUBMITTING' | 'RECEIVED' | 'PROCESSING' | 'OCR_COMPLETE' | 'QUESTIONS_READY' | 'COMPLETED' | 'GENERATING_REPORT' | 'REPORT_READY' | 'FAILED';
@@ -16,8 +16,7 @@ type Answer = { question: string; answer: string };
 
 // --- Main Page Component ---
 const HealthAnalysisPage: FC = () => {
-  // --- All hooks must be declared at the top, before any conditional returns ---
-  const supabase = getSupabaseBrowserClient();
+  const supabase = useSupabaseClient();
   const session = useSession();
   const router = useRouter();
   
@@ -163,6 +162,15 @@ const HealthAnalysisPage: FC = () => {
     }
   }, [status, lastSessionId, pollAnalysisStatus, stopPolling]);
 
+  useEffect(() => {
+    if (session === null) {
+      return;
+    }
+    if (!session) {
+      router.replace("/auth");
+    }
+  }, [session, router]);
+
   // Dropzone hook
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop: (acceptedFiles: FileWithPath[]) => setHealthReport(acceptedFiles[0]),
@@ -170,18 +178,12 @@ const HealthAnalysisPage: FC = () => {
     maxFiles: 1,
   });
 
-  // Authentication check - now after all hooks
-  useEffect(() => {
-    if (session === null) {
-      router.replace("/auth");
-    }
-  }, [session, router]);
-
   if (!session) {
+    // Session is still loading or user is not authenticated and is being redirected.
     return (
       <div className="min-h-screen flex flex-col items-center justify-center">
         <Loader2 className="w-16 h-16 text-emerald-400 animate-spin mb-4" />
-        <p className="text-lg text-gray-300">Checking authentication...</p>
+        <p className="text-lg text-gray-300">Loading...</p>
       </div>
     );
   }
@@ -255,7 +257,7 @@ const HealthAnalysisPage: FC = () => {
         setIsSubmittingAnswer(false);
     }
   };
-  
+
   const isFormDisabled = !['IDLE', 'FAILED'].includes(status);
 
   const renderRightPanel = () => {
@@ -284,7 +286,7 @@ const HealthAnalysisPage: FC = () => {
                 {error && <p className="text-red-400 text-center text-sm mt-2">{error}</p>}
             </motion.div>
         );
-      case 'GENERATING_REPORT': return <StatusDisplay key="generating" icon={Loader2} title="Generating Your Report" message="AIRA is analyzing all your data to create a personalized report. This may take a moment." isloading />;
+      case 'GENERATING_REPORT': return <StatusDisplay key="generating" icon={Loader2} title="Aira is analyzing your vitals..." message="This may take a moment." isloading />;
       case 'REPORT_READY': return <StatusDisplay key="report-ready" icon={CheckCircle2} title="Your Report is Ready" message="Please review the detailed analysis on the left. Remember to consult a doctor with these findings." onStartNew={handleStartNew} />;
       case 'FAILED': return <StatusDisplay key="failed" icon={AlertCircle} title="Analysis Failed" message={error || 'An unknown error occurred.'} onRefresh={() => pollAnalysisStatus(lastSessionId!)} onStartNew={handleStartNew} />;
       default: return null;
@@ -343,7 +345,11 @@ const HealthAnalysisPage: FC = () => {
 
 const StatusDisplay: FC<{icon: FC<any>, title: string, message: string, isloading?: boolean, onRefresh?: () => void, onStartNew?: () => void }> = ({icon: Icon, title, message, isloading, onRefresh, onStartNew}) => (
     <motion.div initial={{opacity: 0, scale: 0.9}} animate={{opacity: 1, scale: 1}} exit={{opacity: 0, scale: 0.9}} className="m-auto text-center space-y-4">
-        <Icon className={`mx-auto h-16 w-16 text-emerald-500 ${isloading && 'animate-spin'}`}/>
+        {isloading ? (
+          <EcgBeat />
+        ) : (
+          <Icon className={`mx-auto h-16 w-16 text-emerald-500`}/>
+        )}
         <div className="space-y-1">
             <h2 className="text-2xl font-bold text-white">{title}</h2>
             <p className="text-white/60 max-w-sm mx-auto">{message}</p>

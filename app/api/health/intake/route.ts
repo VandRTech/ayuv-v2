@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { randomUUID } from 'crypto';
-import { supabaseAdmin } from '@/lib/supabase/server';
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createSupabaseAdminClient, createSupabaseServerClient } from '@/lib/supabase/server';
 import { cookies } from 'next/headers';
 
 // Function to sanitize filename for Supabase Storage
@@ -16,6 +15,7 @@ function sanitizeFilename(filename: string): string {
 
 // Function to trigger the AI analysis pipeline
 async function triggerAnalysisPipeline(sessionId: string, userId: string | null): Promise<void> {
+  const supabaseAdmin = createSupabaseAdminClient();
   console.log(`Triggering analysis pipeline for session: ${sessionId}`);
   
   // Create initial analysis record
@@ -48,8 +48,9 @@ async function triggerAnalysisPipeline(sessionId: string, userId: string | null)
 }
 
 export async function POST(req: NextRequest) {
+  const supabaseAdmin = createSupabaseAdminClient();
   try {
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = createSupabaseServerClient();
     const { data: { session } } = await supabase.auth.getSession();
     const userId = session?.user?.id || null;
 

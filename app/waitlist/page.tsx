@@ -1,6 +1,9 @@
 "use client"
 
 import type React from "react"
+import { useState, FC } from "react"
+import getSupabaseBrowserClient from "@/lib/supabaseClient"
+import { toast } from "@/hooks/use-toast"
 
 import { Navigation } from "@/components/navigation"
 import { AnimatedCard } from "@/components/animated-card"
@@ -14,11 +17,10 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { FooterSection } from "@/components/footer-section"
 import { SpaceBackground } from "@/components/space-background"
 import { motion } from "framer-motion"
-import { useState } from "react"
 import { CheckCircle, Users, Clock, Star } from "lucide-react"
-import { supabase } from '@/lib/supabaseClient'
 
-export default function WaitlistPage() {
+const WaitlistForm: FC = () => {
+  const supabase = getSupabaseBrowserClient()
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -273,3 +275,5 @@ export default function WaitlistPage() {
     </div>
   )
 }
+
+export default WaitlistForm
